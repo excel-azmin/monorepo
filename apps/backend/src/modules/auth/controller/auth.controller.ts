@@ -1,6 +1,9 @@
 import { CurrentUser } from '@/common/shared/decorator/current-user.decorator';
+import { Roles } from '@/common/shared/decorator/roles.decorator';
+import { UserRole } from '@/common/shared/enum/user.enum';
 import { ClerkAuthGuard } from '@/common/shared/guards/clerk-auth.guard';
 import { AuthGuard } from '@/common/shared/guards/login-auth.guard';
+import { RolesGuard } from '@/common/shared/guards/roles.guard';
 import { User } from '@clerk/backend';
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -55,7 +58,8 @@ export class AuthController {
   }
 
   @Get('me')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MODERATOR, UserRole.USER)
   @ApiBearerAuth()
   async getMe(@CurrentUser() user: User) {
     return await this.queryBus.execute(new GetMeQuery(user.id));
