@@ -1,9 +1,9 @@
+import { EnvConfigService } from '@/common/config/env/env-config.service';
 import { ClerkClient, User, verifyToken } from '@clerk/backend';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-custom';
-import { EnvConfigService } from 'src/common/config/env/env-config.service';
 
 @Injectable()
 export class ClerkStrategy extends PassportStrategy(Strategy, 'clerk') {

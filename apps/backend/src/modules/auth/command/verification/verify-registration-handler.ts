@@ -1,7 +1,7 @@
+import { JsonWebTokenService } from '@/common/lib/jwt-token/jsonwebtoken.service';
+import { RedisCacheService } from '@/common/shared/cache/redis-cache.service';
+import { UserService } from '@/modules/user/service/user.service';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { JsonWebTokenService } from 'src/common/lib/jwt-token/jsonwebtoken.service';
-import { RedisCacheService } from 'src/common/shared/cache/redis-cache.service';
-import { UserService } from 'src/modules/user/service/user.service';
 import { VerifyRegistrationCommand } from './verify-registration-command';
 
 @CommandHandler(VerifyRegistrationCommand)

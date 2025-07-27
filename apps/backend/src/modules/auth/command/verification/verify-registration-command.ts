@@ -1,4 +1,4 @@
-import { VerifyOTPUserInfo } from 'src/common/shared/types';
+import { VerifyOTPUserInfo } from '@/common/shared/types';
 import { VerifyRegistrationAuthDto } from '../../dto/verify-registration-auth.dto';
 
 export class VerifyRegistrationCommand {

@@ -1,8 +1,8 @@
+import { MAX_QUERY_LIMIT } from '@/common/constants/query-constants';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
+import { USER_SAFE_FIELDS } from '@/common/shared/query-fields/query-fields.set';
 import { BadRequestException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { MAX_QUERY_LIMIT } from 'src/common/constants/query-constants';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
-import { USER_SAFE_FIELDS } from 'src/common/shared/query-fields/query-fields.set';
 import { UserService } from '../../service/user.service';
 import { GetUserListQuery } from './user-list.query';
 

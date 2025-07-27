@@ -1,5 +1,5 @@
+import { UserService } from '@/modules/user/service/user.service';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { UserService } from 'src/modules/user/service/user.service';
 import { GetMeQuery } from './get-me.query';
 
 @QueryHandler(GetMeQuery)

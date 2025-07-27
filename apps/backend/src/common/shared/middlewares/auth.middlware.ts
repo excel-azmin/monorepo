@@ -1,11 +1,11 @@
+import { JsonWebTokenService } from '@/common/lib/jwt-token/jsonwebtoken.service';
+import { LoginTokenPayload } from '@/common/lib/jwt-token/types';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
 import {
   Injectable,
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JsonWebTokenService } from 'src/common/lib/jwt-token/jsonwebtoken.service';
-import { LoginTokenPayload } from 'src/common/lib/jwt-token/types';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
 import { RedisCacheService } from '../cache/redis-cache.service';
 import { UserStatus } from '../enum/user.enum';
 

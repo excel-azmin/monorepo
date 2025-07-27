@@ -1,6 +1,6 @@
+import { buildCacheKey } from '@/common/utils/cache';
 import { Inject, Injectable } from '@nestjs/common';
 import { Redis } from 'ioredis';
-import { buildCacheKey } from 'src/common/utils/cache';
 
 @Injectable()
 export class RedisCacheService {

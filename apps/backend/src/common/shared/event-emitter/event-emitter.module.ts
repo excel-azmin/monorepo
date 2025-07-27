@@ -1,5 +1,5 @@
+import { AuthModule } from '@/modules/auth/auth.module';
 import { forwardRef, Module } from '@nestjs/common';
-import { AuthModule } from 'src/modules/auth/auth.module';
 import { RequestEventEmitter } from './event-emitter.service';
 import { EventListener } from './event-listener.service';
 

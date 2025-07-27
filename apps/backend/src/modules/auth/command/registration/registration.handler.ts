@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { BcryptService } from 'src/common/lib/bcrypt/bcypt.service';
-import { CustomError } from 'src/common/shared/errors/custom-error';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
+import { BcryptService } from '@/common/lib/bcrypt/bcypt.service';
+import { CustomError } from '@/common/shared/errors/custom-error';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
 import { RegistrationCommand } from './registration.command';
 
 @CommandHandler(RegistrationCommand)

@@ -1,10 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { BcryptService } from 'src/common/lib/bcrypt/bcypt.service';
-import { JsonWebTokenService } from 'src/common/lib/jwt-token/jsonwebtoken.service';
-import { RedisCacheService } from 'src/common/shared/cache/redis-cache.service';
-import { CustomError } from 'src/common/shared/errors/custom-error';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
+import { BcryptService } from '@/common/lib/bcrypt/bcypt.service';
+import { CustomError } from '@/common/shared/errors/custom-error';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
 import { RegistrationCommand } from './registration.command';
 
 @CommandHandler(RegistrationCommand)
@@ -12,10 +10,8 @@ export class RegistrationHandler
   implements ICommandHandler<RegistrationCommand>
 {
   constructor(
-    private readonly jsonWebTokenService: JsonWebTokenService,
-    private readonly redisCacheService: RedisCacheService,
     private readonly prismaService: PrismaService,
-    private readonly bcryptService: BcryptService, // Assuming you have a BcryptService for hashing passwords
+    private readonly bcryptService: BcryptService,
   ) {}
   async execute(command: RegistrationCommand): Promise<any> {
     const { firstName, lastName, email, password } =

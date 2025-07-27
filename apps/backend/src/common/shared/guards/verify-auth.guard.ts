@@ -1,3 +1,4 @@
+import { EnvConfigService } from '@/common/config/env/env-config.service';
 import {
   CanActivate,
   ExecutionContext,
@@ -6,7 +7,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { EnvConfigService } from 'src/common/config/env/env-config.service';
 import { RequestWithOTP } from '../interface/response';
 
 @Injectable()

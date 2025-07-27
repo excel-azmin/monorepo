@@ -1,10 +1,10 @@
+import { CurrentUser } from '@/common/shared/decorator/current-user.decorator';
+import { ClerkAuthGuard } from '@/common/shared/guards/clerk-auth.guard';
+import { AuthGuard } from '@/common/shared/guards/login-auth.guard';
 import { User } from '@clerk/backend';
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CurrentUser } from 'src/common/shared/decorator/current-user.decorator';
-import { ClerkAuthGuard } from 'src/common/shared/guards/clerk-auth.guard';
-import { AuthGuard } from 'src/common/shared/guards/login-auth.guard';
 import { LoginCommand } from '../command/login/login.command';
 import { LogoutCommand } from '../command/logout/logout.command';
 import { RefreshTokenCommand } from '../command/refresh-token/refresh-token.command';

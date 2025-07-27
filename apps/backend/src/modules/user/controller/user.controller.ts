@@ -1,7 +1,7 @@
+import { BasePaginationDto } from '@/common/shared/base-classes/base.pagination';
 import { Controller, Get, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { BasePaginationDto } from 'src/common/shared/base-classes/base.pagination';
 import { GetUserListQuery } from '../query/user-list/user-list.query';
 
 @Controller('v1/user')

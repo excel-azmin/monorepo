@@ -10,7 +10,7 @@ import {
   REFRESH_EXPIRES_IN,
   REFRESH_SECRET,
   WEBHOOK_SECRET,
-} from 'src/common/config/env/env-config.service';
+} from '@/common/config/env/env-config.service';
 import {
   LoginTokenPayload,
   RefreshTokenPayload,

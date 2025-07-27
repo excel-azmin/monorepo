@@ -1,13 +1,13 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   EnvConfigService,
   REFRESH_EXPIRES_IN,
-} from 'src/common/config/env/env-config.service';
-import { BcryptService } from 'src/common/lib/bcrypt/bcypt.service';
-import { JsonWebTokenService } from 'src/common/lib/jwt-token/jsonwebtoken.service';
-import { RedisCacheService } from 'src/common/shared/cache/redis-cache.service';
-import { CustomError } from 'src/common/shared/errors/custom-error';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
+} from '@/common/config/env/env-config.service';
+import { BcryptService } from '@/common/lib/bcrypt/bcypt.service';
+import { JsonWebTokenService } from '@/common/lib/jwt-token/jsonwebtoken.service';
+import { RedisCacheService } from '@/common/shared/cache/redis-cache.service';
+import { CustomError } from '@/common/shared/errors/custom-error';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RefreshTokenCommand } from './refresh-token.command';
 
 @CommandHandler(RefreshTokenCommand)

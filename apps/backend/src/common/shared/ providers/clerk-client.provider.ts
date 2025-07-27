@@ -1,9 +1,9 @@
-import { createClerkClient } from '@clerk/backend';
 import {
   CLERK_PUBLISHABLE_KEY,
   CLERK_SECRET_KEY,
   EnvConfigService,
-} from 'src/common/config/env/env-config.service';
+} from '@/common/config/env/env-config.service';
+import { createClerkClient } from '@clerk/backend';
 
 export const ClerkClientProvider = {
   provide: 'ClerkClient',

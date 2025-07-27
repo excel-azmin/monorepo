@@ -1,7 +1,7 @@
+import { BcryptService } from '@/common/lib/bcrypt/bcypt.service';
+import { JsonWebTokenService } from '@/common/lib/jwt-token/jsonwebtoken.service';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { BcryptService } from 'src/common/lib/bcrypt/bcypt.service';
-import { JsonWebTokenService } from 'src/common/lib/jwt-token/jsonwebtoken.service';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
 import { LoginCommand } from './login.command';
 
 @CommandHandler(LoginCommand)

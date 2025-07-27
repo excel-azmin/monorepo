@@ -1,10 +1,10 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   EnvConfigService,
   LOGIN_EXPIRES_IN,
-} from 'src/common/config/env/env-config.service';
-import { RedisCacheService } from 'src/common/shared/cache/redis-cache.service';
-import { PrismaService } from 'src/common/shared/prisma/prisma.service';
+} from '@/common/config/env/env-config.service';
+import { RedisCacheService } from '@/common/shared/cache/redis-cache.service';
+import { PrismaService } from '@/common/shared/prisma/prisma.service';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LogoutCommand } from './logout.command';
 
 @CommandHandler(LogoutCommand)

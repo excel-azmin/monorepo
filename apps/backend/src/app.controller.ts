@@ -8,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('v1/status')
-  getHealthStatus(): string {
+  getHealthStatus() {
     return this.appService.getHealthStatus();
   }
 }
