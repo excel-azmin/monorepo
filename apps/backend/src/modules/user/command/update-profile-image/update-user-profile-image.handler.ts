@@ -1,7 +1,6 @@
+import { ImageDeleteService } from '@/common/lib/image/image-delete.service';
 import { PrismaService } from '@/common/shared/prisma/prisma.service';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
 import { UserService } from '../../service/user.service';
 import { UpdateUserProfileImageCommand } from './update-user-profile-image.command';
 
@@ -12,6 +11,7 @@ export class UpdateUserProfileImageHandler
   constructor(
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
+    private readonly imageDeleteService: ImageDeleteService,
   ) {}
 
   async execute(command: UpdateUserProfileImageCommand) {
@@ -26,7 +26,7 @@ export class UpdateUserProfileImageHandler
     });
     if (oldImage && oldImage.image) {
       try {
-        await this.deleteImageFile(oldImage.image);
+        await this.imageDeleteService.deleteImage(oldImage.image);
       } catch (error) {
         console.error('Failed to delete old image:', error);
       }
@@ -41,16 +41,5 @@ export class UpdateUserProfileImageHandler
       throw new Error('User not found');
     }
     return this.userService.sanitizeUser(user);
-  }
-  private async deleteImageFile(imagePath: string): Promise<void> {
-    try {
-      const fullPath = join(process.cwd(), imagePath);
-      await unlink(fullPath);
-      console.log('Successfully deleted old image:', imagePath);
-    } catch (error) {
-      if (error.code !== 'ENOENT') {
-        console.error('Failed to delete old image:', error);
-      }
-    }
   }
 }

@@ -8,6 +8,7 @@ import { AuthMiddleware } from './common/shared/middlewares/auth.middlware';
 import { PrismaModule } from './common/shared/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { PostModule } from './modules/post/post.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UserModule } from './modules/user/user.module';
     UserModule,
     PrismaModule,
     RedisCacheModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [
