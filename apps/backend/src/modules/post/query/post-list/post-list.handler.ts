@@ -1,27 +1,22 @@
 import { MAX_QUERY_LIMIT } from '@/common/constants/query-constants';
 import { CustomError } from '@/common/shared/errors/custom-error';
 import { PrismaService } from '@/common/shared/prisma/prisma.service';
-import { USER_SAFE_FIELDS } from '@/common/shared/query-fields/query-fields.set';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { UserService } from '../../service/user.service';
-import { GetUserListQuery } from './user-list.query';
+import { GetPostListQuery } from './post-list.query';
 
-@QueryHandler(GetUserListQuery)
-export class UserListHandler implements IQueryHandler<GetUserListQuery> {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly userService: UserService,
-  ) {}
+@QueryHandler(GetPostListQuery)
+export class GetPostListHandler implements IQueryHandler<GetPostListQuery> {
+  constructor(private readonly prismaService: PrismaService) {}
 
   private buildSelectFields(fields: string[]): Record<string, boolean> {
     const selection: Record<string, boolean> = {};
     for (const field of fields) {
-      selection[field] = USER_SAFE_FIELDS.has(field);
+      selection[field] = true;
     }
     return selection;
   }
 
-  async execute(query: GetUserListQuery): Promise<any> {
+  async execute(query: GetPostListQuery): Promise<any> {
     const {
       page = 1,
       limit = 10,
@@ -33,7 +28,7 @@ export class UserListHandler implements IQueryHandler<GetUserListQuery> {
       fromDate,
       toDate,
       dateField = 'createdAt',
-    } = query.query;
+    } = query.pagination;
 
     const parsedPage = Math.max(1, Number(page)) || 1;
     const parsedLimit =
@@ -41,6 +36,7 @@ export class UserListHandler implements IQueryHandler<GetUserListQuery> {
 
     const where: Record<string, any> = {};
 
+    // Date filtering
     if (fromDate && toDate) {
       where[dateField] = {
         gte: new Date(fromDate),
@@ -48,11 +44,11 @@ export class UserListHandler implements IQueryHandler<GetUserListQuery> {
       };
     }
 
+    // Search functionality
     if (search) {
       where.OR = [
-        { firstName: { contains: search, mode: 'insensitive' } },
-        { lastName: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
+        { title: { contains: search, mode: 'insensitive' } },
+        { content: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -61,20 +57,18 @@ export class UserListHandler implements IQueryHandler<GetUserListQuery> {
     const finalSelect =
       requestedFields.length > 0
         ? this.buildSelectFields(requestedFields)
-        : Object.fromEntries([...USER_SAFE_FIELDS].map((f) => [f, true]));
+        : undefined; // Return all fields if none specified
 
     try {
-      const [users, totalCount] = await Promise.all([
-        this.prismaService.user
-          .findMany({
-            where: Object.keys(where).length ? where : undefined,
-            orderBy: { [sort]: order },
-            select: finalSelect,
-            skip: (parsedPage - 1) * parsedLimit,
-            take: parsedLimit,
-          })
-          .then((users) => users.map(this.userService.sanitizeUser)),
-        this.prismaService.user.count({
+      const [posts, totalCount] = await Promise.all([
+        this.prismaService.post.findMany({
+          where: Object.keys(where).length ? where : undefined,
+          orderBy: { [sort]: order },
+          select: finalSelect,
+          skip: (parsedPage - 1) * parsedLimit,
+          take: parsedLimit,
+        }),
+        this.prismaService.post.count({
           where: Object.keys(where).length ? where : undefined,
         }),
       ]);
@@ -85,7 +79,7 @@ export class UserListHandler implements IQueryHandler<GetUserListQuery> {
       const hasPrevious = parsedPage > 1;
 
       return {
-        data: users,
+        data: posts,
         meta: {
           total: totalCount,
           page: parsedPage,
